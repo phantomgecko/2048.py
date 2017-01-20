@@ -42,10 +42,10 @@ def get_new_field():
 def tilt_field(f, cmd):
     f2=get_new_field()
     for n in range(4):
-        if cmd=="w":liste=getnums(f,c=[n])
-        if cmd=="a":liste=getnums(f,r=[n])
-        if cmd=="s":liste=getnums(f,c=[n])[::-1]
-        if cmd=="d":liste=getnums(f,r=[n])[::-1]
+        if cmd=="r":liste=getnums(f,c=[n])
+        if cmd=="d":liste=getnums(f,r=[n])
+        if cmd=="f":liste=getnums(f,c=[n])[::-1]
+        if cmd=="g":liste=getnums(f,r=[n])[::-1]
         start_len=len(liste)
         while 0 in liste:
             liste.remove(0)
@@ -55,10 +55,10 @@ def tilt_field(f, cmd):
                 liste[i] = liste[i] * 2
             i = i + 1
         liste += [0] * (start_len - len(liste))
-        if cmd=="w": liste=sert(f2,liste, c=[n])
-        if cmd=="a": liste=sert(f2,liste, r=[n])
-        if cmd=="s": liste=sert(f2,liste, c=[n], reverse = True)
-        if cmd=="d": liste=sert(f2,liste, r=[n], reverse = True)
+        if cmd=="r": liste=sert(f2,liste, c=[n])
+        if cmd=="d": liste=sert(f2,liste, r=[n])
+        if cmd=="f": liste=sert(f2,liste, c=[n], reverse = True)
+        if cmd=="g": liste=sert(f2,liste, r=[n], reverse = True)
     return f2
 
 def max_tile(f):
@@ -81,11 +81,11 @@ def pprint(f):
         print()
 
 f=add_random(add_random(get_new_field()))
-while not (f==tilt_field(f,"w")==tilt_field(f,"a")
-==tilt_field(f,"s")==tilt_field(f,"d")):
+while not (f==tilt_field(f,"r")==tilt_field(f,"d")
+==tilt_field(f,"f")==tilt_field(f,"g")):
     cmd=""
     pprint(f)
-    while cmd not in["w","a","s","d"]:
+    while cmd not in["r","d","f","g"]:
         cmd=raw_input(">")
     f2=tilt_field(f,cmd)
     if f2!=f:f=add_random(f2)
